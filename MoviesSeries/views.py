@@ -35,10 +35,10 @@ def dialogflow_webhook(request):
         name = req.get('queryResult').get('queryText')
         if not name:
             raise ValueError("Missing 'name' in request data")
-        seguelist = check(name)
+        seguelist, media_type = check(name)
         seguelist = ", ".join(seguelist)
         return JsonResponse({
-            "fulfillmentText": f"Here are some similar movies: {seguelist}",
+            "fulfillmentText": f"Here are some similar {media_type}: {seguelist}",
         })
     # Return an error if the request method is not POST or request is invalid
     return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
