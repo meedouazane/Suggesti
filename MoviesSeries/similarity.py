@@ -2,10 +2,12 @@ import pandas as pd
 import random
 import requests
 import json
+from django.http import JsonResponse
 
-
+#precalculated models
 similarity_df_Movie = pd.read_csv('/PATH/Movies_similarity.csv', index_col=0)
 similarity_df_Series = pd.read_csv('/PATH/Series_similarity.csv', index_col=0)
+
 
 def check(name):
   """
@@ -29,9 +31,18 @@ def check(name):
   media_type = response['results'][0]['media_type']
 
   if media_type == 'movie':
-    return suggest_Movies(name)
+    try:
+      seguelist = suggest_Movies(name)
+    except Exception as e:
+      return JsonResponse({'status': 'error', 'message': f"Error finding suggestions: {str(e)}"}, status=500)
+    return seguelist
   if media_type == 'tv':
-    return suggest_Series(name)
+    try:
+      seguelist = suggest_Series(name)
+    except Exception as e:
+      return JsonResponse({'status': 'error', 'message': f"Error finding suggestions: {str(e)}"}, status=500)
+    return seguelist
+
 
 def suggest_Series(name, suggest_number=3):
   """
