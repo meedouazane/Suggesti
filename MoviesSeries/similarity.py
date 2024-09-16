@@ -4,8 +4,8 @@ import requests
 import json
 
 
-similarity_df_Movie = pd.read_csv('/home/m311/ML/DL/NLP/suggesti_/Movies_similarity.csv', index_col=0)
-similarity_df_Series = pd.read_csv('/home/m311/ML/DL/NLP/suggesti_/Series_similarity.csv', index_col=0)
+similarity_df_Movie = pd.read_csv('/PATH/Movies_similarity.csv', index_col=0)
+similarity_df_Series = pd.read_csv('/PATH/Series_similarity.csv', index_col=0)
 
 def check(name):
   """
